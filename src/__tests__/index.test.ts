@@ -1,25 +1,22 @@
 import { Server } from "@hapi/hapi";
-import { init } from "../server";
+import { initServer, start } from "../server";
 
 describe("smoke test", () => {
   let server: Server;
 
-  beforeEach((done) => {
-    init().then((s) => {
-      server = s;
-      done();
-    });
+  beforeEach(async () => {
+    server = await initServer();
   });
-  afterEach((done) => {
-    server.stop().then(() => done());
+  afterEach(async () => {
+    await server.stop();
   });
 
   it("index responds", async () => {
     const res = await server.inject({
       method: "get",
-      url: "/",
+      url: "/health",
     });
     expect(res.statusCode).toEqual(200);
-    expect(res.result).toEqual("Hello! Nice to have met you.");
+    expect(res.result).toEqual({ status: "OK" });
   });
 });
