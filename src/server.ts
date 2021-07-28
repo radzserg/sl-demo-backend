@@ -3,6 +3,7 @@
 import Hapi from "@hapi/hapi";
 import { Server } from "@hapi/hapi";
 import { health } from "./routes/health";
+import { getTodoItems } from "./routes/todoItems";
 
 export const initServer = async function (): Promise<Server> {
   const server: Server = Hapi.server({
@@ -14,6 +15,12 @@ export const initServer = async function (): Promise<Server> {
     method: "GET",
     path: "/health",
     handler: health,
+  });
+
+  server.route({
+    method: "GET",
+    path: "/items",
+    handler: getTodoItems,
   });
 
   return server;

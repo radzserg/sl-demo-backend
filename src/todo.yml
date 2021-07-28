@@ -1,0 +1,91 @@
+openapi: 3.1.0
+info:
+  title: todo
+  version: "1.0"
+servers:
+  - url: "http://localhost:3000"
+paths:
+  /items:
+    get:
+      summary: Get TODO items
+      tags: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodoItem"
+      operationId: v1.getItems
+      description: Return a list of todo items
+    post:
+      summary: Add new TODO
+      operationId: v1.postItems
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodoItem"
+      description: Adds new todo item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TodoItem"
+  "/items/{id}":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: todo item unique ID
+    patch:
+      summary: Update TODO item
+      operationId: v1.patchItems
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodoItem"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+          application/xml:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                done:
+                  type: string
+components:
+  schemas:
+    TodoItem:
+      title: TodoItem
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type:
+            - string
+            - "null"
+        done:
+          type: boolean
+      required:
+        - id
+        - title
+        - description
+        - done
