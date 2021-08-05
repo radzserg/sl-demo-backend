@@ -1,40 +1,46 @@
 openapi: 3.1.0
 info:
   title: todo
-  version: "1.0"
+  version: '1.0'
 servers:
-  - url: "http://localhost:3000"
+  - url: 'http://localhost:3000'
 paths:
   /items:
     get:
       summary: Get TODO items
       tags: []
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TodoItem"
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TodoItem'
+              examples: {}
       operationId: v1.getItems
       description: Return a list of todo items
     post:
       summary: Add new TODO
-      operationId: v1.postItems
+      operationId: v1.postItem
       responses:
-        "201":
+        '201':
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TodoItem"
+                $ref: '#/components/schemas/TodoItem'
       description: Adds new todo item
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TodoItem"
-  "/items/{id}":
+              $ref: '#/components/schemas/TodoItem'
+  '/items/{id}':
     parameters:
       - schema:
           type: string
@@ -46,12 +52,12 @@ paths:
       summary: Update TODO item
       operationId: v1.patchItems
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TodoItem"
+                $ref: '#/components/schemas/TodoItem'
       requestBody:
         content:
           application/json:
@@ -78,10 +84,11 @@ components:
           type: string
         title:
           type: string
+          x-faker: lorem.sentence
         description:
           type:
             - string
-            - "null"
+            - 'null'
         done:
           type: boolean
       required:
@@ -89,3 +96,21 @@ components:
         - title
         - description
         - done
+      examples:
+        - id: e4771e74-aca2-40f9-9fc6-3f4710aee33a
+          title: Shopping
+          description: don't forget to buy toothpaste
+          done: false
+        - id: 484e417f-2a35-45e4-8ad8-58d93f91b2f4
+          title: workout
+          description: more push ups today
+          done: false
+        - id: e4771e74-aca2-40f9-9fc6-3f4710aee33a
+          title: dentist
+          description: null
+          done: false
+        - id: e4771e74-aca2-40f9-9fc6-3f4710aee33a
+          title: Spend 2 hrs on blog article
+          description: null
+          done: false
+      description: Todo Item
