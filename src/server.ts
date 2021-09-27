@@ -19,13 +19,8 @@ export const initServer = async function (): Promise<Server> {
     },
   });
 
-  server.route({
-    method: "GET",
-    path: "/health",
-    handler: health,
-  });
-
   const implementedOperationsMap = {
+    "v1.health": health,
     "v1.getItems": getTodoItems,
     // expand this list when add new operation
   };

@@ -1,16 +1,35 @@
 openapi: 3.1.0
 info:
   title: todo
-  version: '1.0'
+  version: "1.0"
 servers:
-  - url: 'http://localhost:3000'
+  - url: "http://localhost:3000"
 paths:
+  /health:
+    get:
+      summary: Gets the health of the Public API Server
+      tags: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  health:
+                    type: string
+              examples:
+                example-1:
+                  health: OK
+      operationId: v1.health
+      description: ""
   /items:
     get:
       summary: Get TODO items
       tags: []
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -20,7 +39,7 @@ paths:
                   items:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TodoItem'
+                      $ref: "#/components/schemas/TodoItem"
               examples: {}
       operationId: v1.getItems
       description: Return a list of todo items
@@ -28,19 +47,19 @@ paths:
       summary: Add new TODO
       operationId: v1.postItem
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TodoItem'
+                $ref: "#/components/schemas/TodoItem"
       description: Adds new todo item
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TodoItem'
-  '/items/{id}':
+              $ref: "#/components/schemas/TodoItem"
+  "/items/{id}":
     parameters:
       - schema:
           type: string
@@ -52,12 +71,12 @@ paths:
       summary: Update TODO item
       operationId: v1.patchItems
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TodoItem'
+                $ref: "#/components/schemas/TodoItem"
       requestBody:
         content:
           application/json:
@@ -88,7 +107,7 @@ components:
         description:
           type:
             - string
-            - 'null'
+            - "null"
         done:
           type: boolean
       required:

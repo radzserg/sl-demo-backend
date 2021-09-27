@@ -1,5 +1,5 @@
 import { Server } from "@hapi/hapi";
-import { initServer, start } from "../server";
+import { initServer } from "../server";
 
 describe("smoke test", () => {
   let server: Server;

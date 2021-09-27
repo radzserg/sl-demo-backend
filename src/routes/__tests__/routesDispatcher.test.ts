@@ -1,11 +1,13 @@
-import { IHttpOperation } from "@stoplight/types";
+
 import { buildRoutes } from "../routesDispatcher";
+import { IHttpOperation } from "@stoplight/types";
 
 describe("routesDispatcher", () => {
   it("build routes when all operations are implemented", () => {
     const operations: IHttpOperation[] = [
       {
         id: "v1.getItems",
+        iid: "v1.getItems",
         method: "get",
         path: "/api/items",
         responses: [{ code: "200" }],
@@ -26,6 +28,7 @@ describe("routesDispatcher", () => {
     const operations: IHttpOperation[] = [
       {
         id: "v1.getItems",
+        iid: "v1.getItems",
         method: "get",
         path: "/api/items",
         responses: [{ code: "200" }],
@@ -33,11 +36,7 @@ describe("routesDispatcher", () => {
     ];
     const mockHandler = jest.fn();
     const implementedOperations = {};
-    const routes = buildRoutes(
-      operations,
-      implementedOperations,
-      mockHandler
-    );
+    const routes = buildRoutes(operations, implementedOperations, mockHandler);
     expect(routes).toEqual([
       {
         method: "GET",
@@ -51,6 +50,7 @@ describe("routesDispatcher", () => {
     const operations: IHttpOperation[] = [
       {
         id: "v1.getItems",
+        iid: "v1.getItems",
         method: "get",
         path: "/api/items",
         responses: [{ code: "200" }],
@@ -59,11 +59,7 @@ describe("routesDispatcher", () => {
     const fakeHandler = jest.fn();
     const implementedOperations = { "v1.getItems": fakeHandler };
     const mockHandler = jest.fn();
-    const routes = buildRoutes(
-      operations,
-      implementedOperations,
-      mockHandler
-    );
+    const routes = buildRoutes(operations, implementedOperations, mockHandler);
     expect(routes).toEqual([
       {
         method: "GET",

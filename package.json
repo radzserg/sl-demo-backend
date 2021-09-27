@@ -6,7 +6,8 @@
     "dev:tsc": "tsc --watch -p .",
     "dev:serve": "nodemon -e js -w build build/index.js",
     "serve": "node build build/index.js",
-    "test": "jest"
+    "test": "jest",
+    "test.contract": "CONTRACT_TEST=1  \"jest\""
   },
   "dependencies": {
     "@hapi/hapi": "^20.1.5"
@@ -15,6 +16,7 @@
     "@stoplight/prism-cli": "^4.3.1",
     "@types/hapi__hapi": "^20.0.9",
     "@types/jest": "^26.0.24",
+    "axios": "^0.21.4",
     "jest": "^27.0.6",
     "nodemon": "^2.0.12",
     "ts-jest": "^27.0.4",
