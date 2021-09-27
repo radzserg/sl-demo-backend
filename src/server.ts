@@ -6,7 +6,7 @@ import { health } from "./routes/health";
 import { getTodoItems } from "./routes/todoItems";
 import { getHttpOperationsFromSpec } from "@stoplight/prism-cli/dist/operations";
 import { createClientFromOperations } from "@stoplight/prism-http/dist/client";
-import { dispatchRoutes } from "./routes/routesDispatcher";
+import { buildRoutes } from "./routes/routesDispatcher";
 import path from "path";
 import { IHttpOperation } from "@stoplight/types";
 
@@ -25,17 +25,16 @@ export const initServer = async function (): Promise<Server> {
     handler: health,
   });
 
-  const operationsMap = {
+  const implementedOperationsMap = {
     "v1.getItems": getTodoItems,
   };
 
   const oasFilePath = path.resolve(__dirname, "..", `todo.oas3.yml`);
-  console.log(oasFilePath);
   const httpOperations = await getHttpOperationsFromSpec(oasFilePath);
 
-  const apiRoutes = dispatchRoutes(
+  const apiRoutes = buildRoutes(
     httpOperations,
-    operationsMap,
+    implementedOperationsMap,
     buildMockHandler(httpOperations)
   );
   if (apiRoutes.length) {
@@ -45,6 +44,11 @@ export const initServer = async function (): Promise<Server> {
   return server;
 };
 
+
+/**
+ * A request will be handled by Prism server
+ * @param httpOperations
+ */
 function buildMockHandler(httpOperations: IHttpOperation[]) {
   if (process.env.NODE_ENV === "development") {
     return undefined;

@@ -1,5 +1,5 @@
 import { IHttpOperation } from "@stoplight/types";
-import { dispatchRoutes } from "../routesDispatcher";
+import { buildRoutes } from "../routesDispatcher";
 
 describe("routesDispatcher", () => {
   it("build routes when all operations are implemented", () => {
@@ -13,7 +13,7 @@ describe("routesDispatcher", () => {
     ];
     const fakeHandler = jest.fn();
     const implementedOperations = { "v1.getItems": fakeHandler };
-    const routes = dispatchRoutes(operations, implementedOperations);
+    const routes = buildRoutes(operations, implementedOperations);
     expect(routes).toEqual([
       {
         method: "GET",
@@ -33,7 +33,7 @@ describe("routesDispatcher", () => {
     ];
     const mockHandler = jest.fn();
     const implementedOperations = {};
-    const routes = dispatchRoutes(
+    const routes = buildRoutes(
       operations,
       implementedOperations,
       mockHandler
@@ -59,7 +59,7 @@ describe("routesDispatcher", () => {
     const fakeHandler = jest.fn();
     const implementedOperations = { "v1.getItems": fakeHandler };
     const mockHandler = jest.fn();
-    const routes = dispatchRoutes(
+    const routes = buildRoutes(
       operations,
       implementedOperations,
       mockHandler

@@ -5,7 +5,7 @@ type OperationsMap = {
   [id: string]: (...args: any) => any;
 };
 
-export function dispatchRoutes(
+export function buildRoutes(
   oasOperations: IHttpOperation[],
   operationsMap: OperationsMap,
   mockHandler?: (req: Request) => ResponseValue
