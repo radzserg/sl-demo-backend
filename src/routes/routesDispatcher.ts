@@ -7,14 +7,14 @@ type OperationsMap = {
 
 export function buildRoutes(
   oasOperations: IHttpOperation[],
-  operationsMap: OperationsMap,
+  implementedOperations: OperationsMap,
   mockHandler?: (req: Request) => ResponseValue
 ): ServerRoute[] {
   const routes: ServerRoute[] = [];
 
   for (const operation of oasOperations) {
     const { iid, method, path } = operation;
-    const implementedOperation = iid && operationsMap[iid];
+    const implementedOperation = iid && implementedOperations[iid];
     if (implementedOperation) {
       routes.push({
         method: method.toUpperCase(),

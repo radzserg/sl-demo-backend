@@ -27,15 +27,16 @@ export const initServer = async function (): Promise<Server> {
 
   const implementedOperationsMap = {
     "v1.getItems": getTodoItems,
+    // expand this list when add new operation
   };
 
   const oasFilePath = path.resolve(__dirname, "..", `todo.oas3.yml`);
-  const httpOperations = await getHttpOperationsFromSpec(oasFilePath);
+  const allApiOperations = await getHttpOperationsFromSpec(oasFilePath);
 
   const apiRoutes = buildRoutes(
-    httpOperations,
+    allApiOperations,
     implementedOperationsMap,
-    buildMockHandler(httpOperations)
+    buildMockHandler(allApiOperations)
   );
   if (apiRoutes.length) {
     server.route(apiRoutes);
